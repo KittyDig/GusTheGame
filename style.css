@@ -26,10 +26,10 @@ body {
 
 .screen {
   position: absolute;
-  left: 116px;
+  left: 185px;
   top: 170px;
-  width: 90px;
-  height: 82px;
+  width: 140px;
+  height: 130px;
   overflow: hidden;
 }
 
