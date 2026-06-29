@@ -1,4 +1,9 @@
 body {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    
     margin: 0;
     background: #f7dff0;
     font-family: Arial, sans-serif;
@@ -11,6 +16,7 @@ body {
 }
 
 .game-wrapper {
+    touch-action: manipulation;
     text-align: center;
     padding: 20px 0 40px;
 }
