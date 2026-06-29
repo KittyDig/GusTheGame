@@ -24,15 +24,14 @@ body {
       image-rendering: pixelated;
     }
 
-    .screen {
-      position: absolute;
-      left: 116px;
-      top: 39px;
-      width: 88px;
-      height: 72px;
-      overflow: hidden;
-      background: #9ee7ff;
-    }
+.screen {
+    position: absolute;
+    left: 116px;
+    top: 82px;      /* Move the screen down */
+    width: 88px;
+    height: 72px;
+    overflow: hidden;
+}
 
     .background {
       width: 100%;
@@ -41,13 +40,13 @@ body {
       image-rendering: pixelated;
     }
 
-    .cat {
-      position: absolute;
-      width: 72px;
-      left: 8px;
-      bottom: 2px;
-      image-rendering: pixelated;
-    }
+.cat {
+    position: absolute;
+    width: 72px;
+    left: 8px;
+    bottom: -8px;   /* Move cat downward */
+    image-rendering: pixelated;
+}
 
     .stats {
       margin-top: 20px;
