@@ -14,7 +14,7 @@ body {
 
     .tamagotchi {
       position: relative;
-      width: 360px;
+      width: 350px;
       margin: auto;
     }
 
@@ -26,10 +26,10 @@ body {
 
 .screen {
   position: absolute;
-  left: 154px;
-  top: 228px;
-  width: 112px;
-  height: 100px;
+  left: 129px;
+  top: 190px;
+  width: 93px;
+  height: 83px;
   overflow: hidden;
 }
 
@@ -62,7 +62,7 @@ body {
       background: white;
       padding: 12px;
       border-radius: 12px;
-      max-width: 320px;
+      max-width: 325px;
     }
 
     .stat {
@@ -87,7 +87,7 @@ body {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      max-width: 320px;
+      max-width: 350px;
     }
 
     button {
