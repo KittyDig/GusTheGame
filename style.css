@@ -44,7 +44,7 @@ body {
     position: absolute;
     width: 72px;
     left: 8px;
-    bottom: -30px;   /* Move cat downward */
+    bottom: -6px;   /* Move cat downward */
     image-rendering: pixelated;
 }
 
