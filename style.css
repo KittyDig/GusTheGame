@@ -57,6 +57,31 @@ body {
   image-rendering: pixelated;
 }
 
+    .stats {
+      margin-top: 20px;
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      max-width: 325px;
+    }
+
+    .stat {
+      margin: 8px 0;
+    }
+
+    .bar {
+      height: 14px;
+      background: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      width: 70%;
+      background: #ff8ac8;
+    }
+
 .device-buttons {
   position: absolute;
   inset: 0;
