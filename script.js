@@ -16,15 +16,15 @@ let game = {
 const menuItems = [
     {
         name: "Feed",
-        icon: "assets/icon/fish.png"
+        icon: "assets/icon/feed.png"
     },
     {
         name: "Play",
-        icon: "assets/icon/mouse.png"
+        icon: "assets/icon/play.png"
     },
     {
         name: "Sleep",
-        icon: "assets/icon/zzz.png"
+        icon: "assets/icon/sleep.png"
     },
     {
         name: "Shop",
