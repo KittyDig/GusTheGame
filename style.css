@@ -25,12 +25,12 @@ body {
     }
 
 .screen {
-    position: absolute;
-    left: 116px;
-    top: 67px;      /* Move the screen down */
-    width: 88px;
-    height: 72px;
-    overflow: hidden;
+  position: absolute;
+  left: 116px;
+  top: 145px;
+  width: 88px;
+  height: 72px;
+  overflow: hidden;
 }
 
     .background {
