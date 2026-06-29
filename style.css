@@ -1,0 +1,102 @@
+body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f7dff0;
+      font-family: Arial, sans-serif;
+    }
+
+    .game-wrapper {
+      text-align: center;
+    }
+
+    .tamagotchi {
+      position: relative;
+      width: 320px;
+      margin: auto;
+    }
+
+    .case {
+      width: 100%;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .screen {
+      position: absolute;
+      left: 116px;
+      top: 39px;
+      width: 88px;
+      height: 72px;
+      overflow: hidden;
+      background: #9ee7ff;
+    }
+
+    .background {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+
+    .cat {
+      position: absolute;
+      width: 72px;
+      left: 8px;
+      bottom: 2px;
+      image-rendering: pixelated;
+    }
+
+    .stats {
+      margin-top: 20px;
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      max-width: 320px;
+    }
+
+    .stat {
+      margin: 8px 0;
+    }
+
+    .bar {
+      height: 14px;
+      background: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      width: 70%;
+      background: #ff8ac8;
+    }
+
+    .buttons {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      max-width: 320px;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #555;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    .coins {
+      margin-top: 12px;
+      font-weight: bold;
+    }

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>Cat Tamagotchi</title>
+</head>
+
+<body>
+  <main class="game-wrapper">
+    <h1>Pixel Cat</h1>
+
+        <div class="tamagotchi">
+        <img src="assets/case/greyTG.png" alt="Tamagotchi case" class="case">
+
+        <div class="screen">
+            <img src="assets/background/sunny.png" alt="Game background" class="background">
+            <img src="assets/cat/cat2.png" alt="Pixel cat" class="cat">
+        </div>
+        </div>
+
+    <div class="stats">
+      <div class="stat">
+        Hunger
+        <div class="bar"><div id="hungerBar" class="fill"></div></div>
+      </div>
+
+      <div class="stat">
+        Happiness
+        <div class="bar"><div id="happyBar" class="fill"></div></div>
+      </div>
+
+      <div class="stat">
+        Energy
+        <div class="bar"><div id="energyBar" class="fill"></div></div>
+      </div>
+
+      <div class="coins">Coins: <span id="coins">0</span></div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="feedCat()">Feed</button>
+      <button onclick="playCat()">Play</button>
+      <button onclick="sleepCat()">Sleep</button>
+      <button onclick="openShop()">Shop</button>
+    </div>
+  </main>
+
+  <script>
+    let game = {
+      hunger: 70,
+      happiness: 70,
+      energy: 70,
+      coins: 0
+    };
+
+    function updateGame() {
+      document.getElementById("hungerBar").style.width = game.hunger + "%";
+      document.getElementById("happyBar").style.width = game.happiness + "%";
+      document.getElementById("energyBar").style.width = game.energy + "%";
+      document.getElementById("coins").textContent = game.coins;
+
+      localStorage.setItem("catTamagotchiSave", JSON.stringify(game));
+    }
+
+    function feedCat() {
+      game.hunger = Math.min(game.hunger + 10, 100);
+      game.coins += 2;
+      updateGame();
+    }
+
+    function playCat() {
+      game.happiness = Math.min(game.happiness + 10, 100);
+      game.energy = Math.max(game.energy - 5, 0);
+      game.coins += 3;
+      updateGame();
+    }
+
+    function sleepCat() {
+      game.energy = Math.min(game.energy + 15, 100);
+      game.hunger = Math.max(game.hunger - 5, 0);
+      updateGame();
+    }
+
+    function openShop() {
+      alert("Shop coming soon! You will be able to buy cases, cats and backgrounds here.");
+    }
+
+    function loadGame() {
+      const savedGame = localStorage.getItem("catTamagotchiSave");
+
+      if (savedGame) {
+        game = JSON.parse(savedGame);
+      }
+
+      updateGame();
+    }
+
+    setInterval(() => {
+      game.hunger = Math.max(game.hunger - 1, 0);
+      game.happiness = Math.max(game.happiness - 1, 0);
+      game.energy = Math.max(game.energy - 1, 0);
+      updateGame();
+    }, 10000);
+
+    loadGame();
+  </script>
+</body>
+</html>
