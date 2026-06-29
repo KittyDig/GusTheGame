@@ -57,52 +57,70 @@ body {
   image-rendering: pixelated;
 }
 
-    .stats {
-      margin-top: 20px;
-      background: white;
-      padding: 12px;
-      border-radius: 12px;
-      max-width: 325px;
-    }
+.device-buttons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
 
-    .stat {
-      margin: 8px 0;
-    }
+.device-btn {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
 
-    .bar {
-      height: 14px;
-      background: #ddd;
-      border-radius: 20px;
-      overflow: hidden;
-    }
+.device-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  mix-blend-mode: difference;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
 
-    .fill {
-      height: 100%;
-      width: 70%;
-      background: #ff8ac8;
-    }
+.device-btn:hover::after {
+  opacity: 0.45;
+}
 
-    .buttons {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      max-width: 350px;
-    }
+.device-btn:active::after {
+  opacity: 0.75;
+  transform: scale(0.85);
+}
 
-    button {
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #555;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.btn-left {
+  left: 96px;
+  bottom: 52px;
+}
 
-    button:hover {
-      background: #333;
-    }
+.btn-middle {
+  left: 143px;
+  bottom: 37px;
+}
+
+.btn-right {
+  left: 192px;
+  bottom: 52px;
+}
+
+.screen-menu {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 9px;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.65);
+  color: black;
+  text-align: center;
+  image-rendering: pixelated;
+}
 
     .coins {
       margin-top: 12px;

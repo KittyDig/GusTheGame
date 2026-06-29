@@ -11,42 +11,26 @@
   <main class="game-wrapper">
     <h1>Gus the Game</h1>
 
-        <div class="tamagotchi">
-        <img src="assets/case/test.png" alt="Tamagotchi case" class="case">
+<div class="tamagotchi">
+  <img src="assets/case/greyTG.png" alt="Tamagotchi case" class="case">
 
-<div class="screen">
+  <div class="screen">
     <div class="scene">
-            <img src="assets/background/sunny.png" alt="Game background" class="background">
-            <img src="assets/cat/cat2.png" alt="Pixel cat" class="cat">
-        </div>
-        </div>
-        </div>
+      <img src="assets/background/sunny.png" alt="Game background" class="background">
+      <img src="assets/cat/cat2.png" alt="Pixel cat" class="cat">
 
-    <div class="stats">
-      <div class="stat">
-        Hunger
-        <div class="bar"><div id="hungerBar" class="fill"></div></div>
+      <div class="screen-menu">
+        <span id="selectedAction">Feed</span>
       </div>
-
-      <div class="stat">
-        Happiness
-        <div class="bar"><div id="happyBar" class="fill"></div></div>
-      </div>
-
-      <div class="stat">
-        Energy
-        <div class="bar"><div id="energyBar" class="fill"></div></div>
-      </div>
-
-      <div class="coins">Coins: <span id="coins">0</span></div>
     </div>
+  </div>
 
-    <div class="buttons">
-      <button onclick="feedCat()">Feed</button>
-      <button onclick="playCat()">Play</button>
-      <button onclick="sleepCat()">Sleep</button>
-      <button onclick="openShop()">Shop</button>
-    </div>
+  <div class="device-buttons">
+    <button class="device-btn btn-left" onclick="previousMenuItem()" aria-label="Previous option"></button>
+    <button class="device-btn btn-middle" onclick="selectMenuItem()" aria-label="Select option"></button>
+    <button class="device-btn btn-right" onclick="nextMenuItem()" aria-label="Next option"></button>
+  </div>
+</div>
   </main>
   <script src="script.js"></script>
 </body>

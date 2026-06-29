@@ -37,6 +37,49 @@
       alert("Shop coming soon! You will be able to buy cases, cats and backgrounds here.");
     }
 
+    const menuItems = ["Feed", "Play", "Sleep", "Shop"];
+let currentMenuIndex = 0;
+
+function updateMenuText() {
+  document.getElementById("selectedAction").textContent = menuItems[currentMenuIndex];
+}
+
+function previousMenuItem() {
+  currentMenuIndex--;
+
+  if (currentMenuIndex < 0) {
+    currentMenuIndex = menuItems.length - 1;
+  }
+
+  updateMenuText();
+}
+
+function nextMenuItem() {
+  currentMenuIndex++;
+
+  if (currentMenuIndex >= menuItems.length) {
+    currentMenuIndex = 0;
+  }
+
+  updateMenuText();
+}
+
+function selectMenuItem() {
+  const selectedItem = menuItems[currentMenuIndex];
+
+  if (selectedItem === "Feed") {
+    feedCat();
+  } else if (selectedItem === "Play") {
+    playCat();
+  } else if (selectedItem === "Sleep") {
+    sleepCat();
+  } else if (selectedItem === "Shop") {
+    openShop();
+  }
+}
+
+updateMenuText();
+
     function loadGame() {
       const savedGame = localStorage.getItem("catTamagotchiSave");
 
