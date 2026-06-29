@@ -28,8 +28,8 @@ body {
   position: absolute;
   left: 116px;
   top: 145px;
-  width: 70px;
-  height: 58px;
+  width: 88px;
+  height: 72px;
   overflow: hidden;
 }
 
@@ -50,9 +50,9 @@ body {
 
 .cat {
   position: absolute;
-  width: 56px;
+  width: 48px;
   left: 50%;
-  bottom: 3px;
+  bottom: 5px;
   transform: translateX(-50%);
   image-rendering: pixelated;
 }
