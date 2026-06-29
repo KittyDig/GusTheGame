@@ -1,16 +1,19 @@
 body {
-      margin: 0;
-      min-height: 50vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f7dff0;
-      font-family: Arial, sans-serif;
-    }
+    margin: 0;
+    background: #f7dff0;
+    font-family: Arial, sans-serif;
 
-    .game-wrapper {
-      text-align: center;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    min-height: 100vh;
+}
+
+.game-wrapper {
+    text-align: center;
+    padding: 20px 0 40px;
+}
 
     .tamagotchi {
       position: relative;
