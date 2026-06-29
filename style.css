@@ -165,3 +165,19 @@ body {
       margin-top: 12px;
       font-weight: bold;
     }
+
+    .shop-panel {
+  margin-bottom: 20px;
+}
+
+.shop-item {
+  margin: 16px 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f7dff0;
+}
+
+.shop-item img {
+  max-width: 90px;
+  image-rendering: pixelated;
+}

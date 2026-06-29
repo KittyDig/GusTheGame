@@ -104,8 +104,7 @@ function sleepCat() {
 }
 
 function openShop() {
-
-    alert("Shop coming soon!");
+    window.location.href = "shop.html";
 }
 
 //=========================
