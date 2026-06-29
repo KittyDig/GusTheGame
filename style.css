@@ -27,7 +27,7 @@ body {
 .screen {
     position: absolute;
     left: 116px;
-    top: 82px;      /* Move the screen down */
+    top: 67px;      /* Move the screen down */
     width: 88px;
     height: 72px;
     overflow: hidden;
@@ -44,7 +44,7 @@ body {
     position: absolute;
     width: 72px;
     left: 8px;
-    bottom: -8px;   /* Move cat downward */
+    bottom: -30px;   /* Move cat downward */
     image-rendering: pixelated;
 }
 
