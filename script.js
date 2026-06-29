@@ -14,13 +14,35 @@ let game = {
 //=========================
 
 const menuItems = [
-    "Feed",
-    "Play",
-    "Sleep",
-    "Shop"
+    {
+        name: "Feed",
+        icon: "assets/icon/fish.png"
+    },
+    {
+        name: "Play",
+        icon: "assets/icon/mouse.png"
+    },
+    {
+        name: "Sleep",
+        icon: "assets/icon/zzz.png"
+    },
+    {
+        name: "Shop",
+        icon: "assets/icon/shop.png"
+    }
 ];
 
 let currentMenuIndex = 0;
+
+function updateMenuText() {
+    const selectedItem = menuItems[currentMenuIndex];
+
+    document.getElementById("selectedAction").textContent =
+        selectedItem.name;
+
+    document.getElementById("selectedIcon").src =
+        selectedItem.icon;
+}
 
 //=========================
 // UPDATE UI
@@ -40,8 +62,7 @@ function updateGame() {
     document.getElementById("coins").textContent =
         game.coins;
 
-    document.getElementById("selectedAction").textContent =
-        menuItems[currentMenuIndex];
+    updateMenuText();
 
     localStorage.setItem(
         "catTamagotchiSave",
@@ -113,7 +134,9 @@ function nextMenuItem() {
 
 function selectMenuItem() {
 
-    switch(menuItems[currentMenuIndex]){
+    const selectedItem = menuItems[currentMenuIndex].name;
+
+    switch(selectedItem){
 
         case "Feed":
             feedCat();
