@@ -191,42 +191,37 @@ body {
 /*shop*/
 
 .shop-menu {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-  width: 320px;
-  max-width: 90vw;
-  margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin: 25px auto;
 }
 
 .shop-card {
-  background: white;
-  border-radius: 18px;
-  padding: 18px;
-  text-decoration: none;
-  color: black;
-  font-size: 22px;
-  font-weight: bold;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+    display: block;
+    transition: transform 0.15s ease;
 }
 
 .shop-card img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  image-rendering: pixelated;
+    width: 180px;
+    height: auto;
+    image-rendering: pixelated;
+    display: block;
+    transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-.shop-card:active {
-  transform: scale(0.96);
+.shop-card:hover img {
+    filter: brightness(1.1);
+}
+
+.shop-card:active img {
+    transform: scale(0.95);
+    filter: brightness(0.85);
 }
 
 .back-button {
-  margin-top: 10px;
+    margin-top: 25px;
 }
 
 .shop-placeholder {
