@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <link rel="stylesheet" href="style.css">
   <title>Gus Shop</title>
 </head>
@@ -11,36 +12,24 @@
   <main class="game-wrapper">
     <h1>Shop</h1>
 
-    <div class="stats shop-panel">
-      <h2>Cases</h2>
+    <div class="shop-menu">
+      <a href="case-shop.html" class="shop-card">
+        <img src="assets/icon/case-shop.png" alt="Case shop">
+        <span>Cases</span>
+      </a>
 
-      <div class="shop-item">
-        <img src="assets/case/test.png" alt="Red case">
-        <p>Red Case</p>
-        <p>100 coins</p>
-        <button>Buy</button>
-      </div>
+      <a href="cat-shop.html" class="shop-card">
+        <img src="assets/icon/cat-shop.png" alt="Cat shop">
+        <span>Cats</span>
+      </a>
 
-      <h2>Cats</h2>
-
-      <div class="shop-item">
-        <img src="assets/cat/cat2.png" alt="Grey cat">
-        <p>Grey Cat</p>
-        <p>100 coins</p>
-        <button>Buy</button>
-      </div>
-
-      <h2>Backgrounds</h2>
-
-      <div class="shop-item">
-        <img src="assets/background/sunny.png" alt="Sunny background">
-        <p>Sunny</p>
-        <p>100 coins</p>
-        <button>Buy</button>
-      </div>
+      <a href="background-shop.html" class="shop-card">
+        <img src="assets/icon/background-shop.png" alt="Background shop">
+        <span>Backgrounds</span>
+      </a>
     </div>
 
-    <button onclick="window.location.href='index.html'">
+    <button class="back-button" onclick="window.location.href='index.html'">
       Back to Game
     </button>
   </main>
