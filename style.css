@@ -59,7 +59,7 @@ body {
 
 .cat {
   position: absolute;
-  width: 48px;
+  width: 80px;
   left: 50%;
   bottom: 5px;
   transform: translateX(-50%);
@@ -266,4 +266,44 @@ body {
 
 .back-button {
     margin-top: 20px;
+}
+
+.clothes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  width: 320px;
+  max-width: 90vw;
+  margin: 20px auto;
+}
+
+.clothes-item {
+  text-align: center;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.clothes-item img {
+  width: 120px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.clothes-item h2 {
+  margin: 8px 0 4px;
+}
+
+.clothes-item p {
+  margin: 4px 0 12px;
+  font-weight: bold;
+}
+
+.clothes-item button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #555;
+  color: white;
+  font-size: 16px;
 }
