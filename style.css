@@ -188,69 +188,58 @@ body {
   image-rendering: pixelated;
 }
 
-/*shop*/
+/* shop */
 
 .shop-page {
-  width: 100%;
+    width: 100%;
 }
 
 .shopping-street {
-  position: relative;
-  width: 360px;
-  max-width: 95vw;
-  margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    margin: 30px auto;
 }
 
 .street-bg {
-  width: 100%;
-  display: block;
-  image-rendering: pixelated;
+    display: none;
 }
 
 .street-shop {
-  position: absolute;
+    display: block;
+
+    transition:
+        transform .15s ease,
+        filter .15s ease;
+}
+
+.street-shop {
   display: block;
-  transition: transform 0.15s ease, filter 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .street-shop img {
-  width: 85px;
-  image-rendering: pixelated;
+  width: 220px;
+  height: auto;
   display: block;
+  image-rendering: pixelated;
+  transition: transform 0.08s ease, filter 0.08s ease;
 }
 
-.street-shop:hover {
-  transform: scale(1.08);
-  filter: brightness(1.12);
-}
-
-.street-shop:active {
-  transform: scale(0.92);
+.street-shop:active img {
+  transform: scale(0.94);
   filter: brightness(0.85);
 }
 
-
-.cases-door {
-  left: 25px;
-  bottom: 35px;
-}
-
-.clothes-door {
-  left: 137px;
-  bottom: 35px;
-}
-
-.bg-door {
-  right: 25px;
-  bottom: 35px;
-}
-
-.back-button {
-  margin-top: 20px;
+.street-shop.is-pressed img {
+  transform: scale(0.94);
+  filter: brightness(0.85);
 }
 
 .shop-placeholder {
-    background: white;
     border-radius: 20px;
     padding: 30px;
     width: 320px;

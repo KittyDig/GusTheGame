@@ -74,6 +74,21 @@ function updateGame() {
 // BUTTON ACTIONS
 //=========================
 
+
+document.querySelectorAll(".street-shop").forEach(function(shop) {
+  shop.addEventListener("touchstart", function() {
+    shop.classList.add("is-pressed");
+  });
+
+  shop.addEventListener("touchend", function() {
+    shop.classList.remove("is-pressed");
+  });
+
+  shop.addEventListener("touchcancel", function() {
+    shop.classList.remove("is-pressed");
+  });
+});
+
 function feedCat() {
 
     game.hunger = Math.min(game.hunger + 10, 100);
