@@ -190,42 +190,66 @@ body {
 
 /*shop*/
 
-.shop-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    margin: 25px auto;
+.shop-page {
+  width: 100%;
 }
 
-.shop-card {
-    display: block;
-    transition: transform 0.15s ease;
+.shopping-street {
+  position: relative;
+  width: 360px;
+  max-width: 95vw;
+  margin: 20px auto;
 }
 
-.shop-card img {
-    width: 180px;
-    height: auto;
-    image-rendering: pixelated;
-    display: block;
-    transition: transform 0.15s ease, filter 0.15s ease;
+.street-bg {
+  width: 100%;
+  display: block;
+  image-rendering: pixelated;
 }
 
-.shop-card:hover img {
-    filter: brightness(1.1);
+.street-shop {
+  position: absolute;
+  display: block;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-.shop-card:active img {
-    transform: scale(0.95);
-    filter: brightness(0.85);
+.street-shop img {
+  width: 85px;
+  image-rendering: pixelated;
+  display: block;
+}
+
+.street-shop:hover {
+  transform: scale(1.08);
+  filter: brightness(1.12);
+}
+
+.street-shop:active {
+  transform: scale(0.92);
+  filter: brightness(0.85);
+}
+
+
+.cases-door {
+  left: 25px;
+  bottom: 35px;
+}
+
+.clothes-door {
+  left: 137px;
+  bottom: 35px;
+}
+
+.bg-door {
+  right: 25px;
+  bottom: 35px;
 }
 
 .back-button {
-    margin-top: 25px;
+  margin-top: 20px;
 }
 
 .shop-placeholder {
-    background: white;
     border-radius: 20px;
     padding: 30px;
     width: 320px;
