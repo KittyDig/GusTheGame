@@ -98,6 +98,10 @@ function feedCat() {
     updateGame();
 }
 
+function openGames() {
+    window.location.href = "games.html";
+}
+
 function playCat() {
 
     game.happiness = Math.min(game.happiness + 10, 100);
@@ -150,14 +154,14 @@ function selectMenuItem() {
 
     const selectedItem = menuItems[currentMenuIndex].name;
 
-    switch(selectedItem){
+    switch(selectedItem) {
 
         case "Feed":
             feedCat();
             break;
 
         case "Play":
-            playCat();
+            openGames();
             break;
 
         case "Sleep":
