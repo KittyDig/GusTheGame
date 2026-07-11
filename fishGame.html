@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, user-scalable=no"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>Fish Catch</title>
+</head>
+
+<body>
+
+<main class="game-wrapper mini-game-page">
+
+  <h1>Fish Catch</h1>
+
+  <p>Move Gus left and right to catch the fish.</p>
+
+  <div class="game-info">
+    Score: <span id="fishScore">0</span>
+    |
+    Time: <span id="fishTime">20</span>
+  </div>
+
+  <div id="fishGameArea" class="fish-game-area">
+
+    <div id="fallingItems"></div>
+
+    <img
+      id="catcherCat"
+      src="assets/icon/pop1.png"
+      alt="Gus catching fish"
+      class="catcher-cat"
+    >
+
+  </div>
+
+  <div class="fish-controls">
+    <button id="moveLeft" aria-label="Move Gus left">◀</button>
+    <button id="moveRight" aria-label="Move Gus right">▶</button>
+  </div>
+
+  <button
+    class="back-button"
+    onclick="window.location.href='games.html'"
+  >
+    ← Back to Games
+  </button>
+
+</main>
+
+<script src="fishGame.js"></script>
+
+</body>
+</html>
