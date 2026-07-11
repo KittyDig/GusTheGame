@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Mouse Chase</title>
+</head>
+
+<body>
+
+<main class="game-wrapper mini-game-page">
+
+    <h1>Mouse Chase</h1>
+
+    <p>Tap the mouse as many times as possible!</p>
+
+    <div class="game-info">
+        Score: <span id="score">0</span>
+        |
+        Time: <span id="time">15</span>
+    </div>
+
+    <div id="mouseGameArea" class="mini-game-area">
+        <button id="mouseTarget" class="mouse-target" aria-label="Catch mouse">
+            <img src="assets/icon/mouse.png" alt="">
+        </button>
+    </div>
+
+    <button
+        class="back-button"
+        onclick="window.location.href='games.html'"
+    >
+        ← Back to Games
+    </button>
+
+</main>
+
+<script src="mouseGame.js"></script>
+
+</body>
+</html>
