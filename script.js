@@ -203,7 +203,7 @@ function feedCat() {
 
     game.coins += 2;
 
-    playAnimation("eat", 1200);
+    playAnimation("eat", 5200);
 
     updateGame();
 }
@@ -241,7 +241,7 @@ function sleepCat() {
     game.hunger =
         Math.max(game.hunger - 5, 0);
 
-    playAnimation("sleep", 2500);
+    playAnimation("sleep", 3600);
 
     updateGame();
 }
