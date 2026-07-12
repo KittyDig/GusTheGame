@@ -83,33 +83,37 @@ function showCurrentCat() {
         getCurrentCatGif();
 }
 
-function playEatingAnimation() {
+function playAnimation(type, duration = 1200) {
 
     const catSprite =
-        document.getElementById(
-            "catSprite"
-        );
+        document.getElementById("catSprite");
 
-    const eatingGif =
-        getCurrentEatGif();
+    let animationGif;
 
-    // Temporarily clear the image so the GIF
-    // always restarts from its first frame.
+    switch(type) {
+
+        case "eat":
+            animationGif = getCurrentEatGif();
+            break;
+
+        case "sleep":
+            animationGif = getCurrentSleepGif();
+            break;
+
+        default:
+            animationGif = getCurrentCatGif();
+    }
+
+    // Restart GIF from frame 1
     catSprite.src = "";
-
     void catSprite.offsetWidth;
+    catSprite.src = animationGif;
 
-    catSprite.src =
-        eatingGif;
-
-    // Change this number to match the exact
-    // length of your eating GIF.
     setTimeout(function() {
 
-        catSprite.src =
-            getCurrentCatGif();
+        catSprite.src = getCurrentCatGif();
 
-    }, 1200);
+    }, duration);
 }
 
 //=========================
@@ -199,7 +203,7 @@ function feedCat() {
 
     game.coins += 2;
 
-    playEatingAnimation();
+    playAnimation("eat", 1200);
 
     updateGame();
 }
@@ -232,16 +236,12 @@ function playCat() {
 function sleepCat() {
 
     game.energy =
-        Math.min(
-            game.energy + 15,
-            100
-        );
+        Math.min(game.energy + 15, 100);
 
     game.hunger =
-        Math.max(
-            game.hunger - 5,
-            0
-        );
+        Math.max(game.hunger - 5, 0);
+
+    playAnimation("sleep", 2500);
 
     updateGame();
 }
@@ -282,6 +282,16 @@ function nextMenuItem() {
     }
 
     updateGame();
+}
+
+function getCurrentSleepGif() {
+
+    return "assets/cat/" +
+        game.currentCat.replace(
+            "gus",
+            "gusSleep"
+        ) +
+        ".gif";
 }
 
 function selectMenuItem() {
