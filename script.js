@@ -6,7 +6,10 @@ let game = {
     hunger: 70,
     happiness: 70,
     energy: 70,
-    coins: 0
+    coins: 0,
+
+    // Stores the currently equipped Gus outfit.
+    currentCat: "gusOG"
 };
 
 //=========================
@@ -35,13 +38,78 @@ const menuItems = [
 let currentMenuIndex = 0;
 
 function updateMenuText() {
-    const selectedItem = menuItems[currentMenuIndex];
 
-    document.getElementById("selectedAction").textContent =
-        selectedItem.name;
+    const selectedItem =
+        menuItems[currentMenuIndex];
 
-    document.getElementById("selectedIcon").src =
-        selectedItem.icon;
+    document.getElementById(
+        "selectedAction"
+    ).textContent = selectedItem.name;
+
+    document.getElementById(
+        "selectedIcon"
+    ).src = selectedItem.icon;
+}
+
+//=========================
+// CAT ANIMATIONS
+//=========================
+
+function getCurrentCatGif() {
+
+    return "assets/cat/" +
+        game.currentCat +
+        ".gif";
+}
+
+function getCurrentEatGif() {
+
+    return "assets/cat/" +
+        game.currentCat.replace(
+            "gus",
+            "gusEat"
+        ) +
+        ".gif";
+}
+
+function showCurrentCat() {
+
+    const catSprite =
+        document.getElementById(
+            "catSprite"
+        );
+
+    catSprite.src =
+        getCurrentCatGif();
+}
+
+function playEatingAnimation() {
+
+    const catSprite =
+        document.getElementById(
+            "catSprite"
+        );
+
+    const eatingGif =
+        getCurrentEatGif();
+
+    // Temporarily clear the image so the GIF
+    // always restarts from its first frame.
+    catSprite.src = "";
+
+    void catSprite.offsetWidth;
+
+    catSprite.src =
+        eatingGif;
+
+    // Change this number to match the exact
+    // length of your eating GIF.
+    setTimeout(function() {
+
+        catSprite.src =
+            getCurrentCatGif();
+
+    }, 1200);
 }
 
 //=========================
@@ -50,16 +118,24 @@ function updateMenuText() {
 
 function updateGame() {
 
-    document.getElementById("hungerBar").style.width =
+    document.getElementById(
+        "hungerBar"
+    ).style.width =
         game.hunger + "%";
 
-    document.getElementById("happyBar").style.width =
+    document.getElementById(
+        "happyBar"
+    ).style.width =
         game.happiness + "%";
 
-    document.getElementById("energyBar").style.width =
+    document.getElementById(
+        "energyBar"
+    ).style.width =
         game.energy + "%";
 
-    document.getElementById("coins").textContent =
+    document.getElementById(
+        "coins"
+    ).textContent =
         game.coins;
 
     updateMenuText();
@@ -71,42 +147,82 @@ function updateGame() {
 }
 
 //=========================
+// MOBILE SHOP PRESS EFFECT
+//=========================
+
+document.querySelectorAll(
+    ".street-shop"
+).forEach(function(shop) {
+
+    shop.addEventListener(
+        "touchstart",
+        function() {
+
+            shop.classList.add(
+                "is-pressed"
+            );
+        }
+    );
+
+    shop.addEventListener(
+        "touchend",
+        function() {
+
+            shop.classList.remove(
+                "is-pressed"
+            );
+        }
+    );
+
+    shop.addEventListener(
+        "touchcancel",
+        function() {
+
+            shop.classList.remove(
+                "is-pressed"
+            );
+        }
+    );
+});
+
+//=========================
 // BUTTON ACTIONS
 //=========================
 
-
-document.querySelectorAll(".street-shop").forEach(function(shop) {
-  shop.addEventListener("touchstart", function() {
-    shop.classList.add("is-pressed");
-  });
-
-  shop.addEventListener("touchend", function() {
-    shop.classList.remove("is-pressed");
-  });
-
-  shop.addEventListener("touchcancel", function() {
-    shop.classList.remove("is-pressed");
-  });
-});
-
 function feedCat() {
 
-    game.hunger = Math.min(game.hunger + 10, 100);
+    game.hunger =
+        Math.min(
+            game.hunger + 10,
+            100
+        );
 
     game.coins += 2;
+
+    playEatingAnimation();
 
     updateGame();
 }
 
 function openGames() {
-    window.location.href = "games.html";
+
+    window.location.href =
+        "games.html";
 }
 
 function playCat() {
 
-    game.happiness = Math.min(game.happiness + 10, 100);
+    game.happiness =
+        Math.min(
+            game.happiness + 10,
+            100
+        );
 
-    game.energy = Math.max(game.energy - 5, 0);
+    game.energy =
+        Math.max(
+            game.energy - 5,
+            0
+        );
 
     game.coins += 3;
 
@@ -115,15 +231,25 @@ function playCat() {
 
 function sleepCat() {
 
-    game.energy = Math.min(game.energy + 15, 100);
+    game.energy =
+        Math.min(
+            game.energy + 15,
+            100
+        );
 
-    game.hunger = Math.max(game.hunger - 5, 0);
+    game.hunger =
+        Math.max(
+            game.hunger - 5,
+            0
+        );
 
     updateGame();
 }
 
 function openShop() {
-    window.location.href = "shop.html";
+
+    window.location.href =
+        "shop.html";
 }
 
 //=========================
@@ -134,8 +260,11 @@ function previousMenuItem() {
 
     currentMenuIndex--;
 
-    if (currentMenuIndex < 0)
-        currentMenuIndex = menuItems.length - 1;
+    if (currentMenuIndex < 0) {
+
+        currentMenuIndex =
+            menuItems.length - 1;
+    }
 
     updateGame();
 }
@@ -144,15 +273,23 @@ function nextMenuItem() {
 
     currentMenuIndex++;
 
-    if (currentMenuIndex >= menuItems.length)
+    if (
+        currentMenuIndex >=
+        menuItems.length
+    ) {
+
         currentMenuIndex = 0;
+    }
 
     updateGame();
 }
 
 function selectMenuItem() {
 
-    const selectedItem = menuItems[currentMenuIndex].name;
+    const selectedItem =
+        menuItems[
+            currentMenuIndex
+        ].name;
 
     switch(selectedItem) {
 
@@ -178,16 +315,28 @@ function selectMenuItem() {
 // SAVE / LOAD
 //=========================
 
-function loadGame(){
+function loadGame() {
 
     const save =
-        localStorage.getItem("catTamagotchiSave");
+        localStorage.getItem(
+            "catTamagotchiSave"
+        );
 
-    if(save){
+    if (save) {
 
-        game = JSON.parse(save);
+        const savedGame =
+            JSON.parse(save);
 
+        // Merge the saved data with the default
+        // object so older saves still receive
+        // the new currentCat property.
+        game = {
+            ...game,
+            ...savedGame
+        };
     }
+
+    showCurrentCat();
 
     updateGame();
 }
@@ -196,17 +345,29 @@ function loadGame(){
 // GAME LOOP
 //=========================
 
-setInterval(function(){
+setInterval(function() {
 
-    game.hunger = Math.max(game.hunger - 1,0);
+    game.hunger =
+        Math.max(
+            game.hunger - 1,
+            0
+        );
 
-    game.happiness = Math.max(game.happiness - 1,0);
+    game.happiness =
+        Math.max(
+            game.happiness - 1,
+            0
+        );
 
-    game.energy = Math.max(game.energy - 1,0);
+    game.energy =
+        Math.max(
+            game.energy - 1,
+            0
+        );
 
     updateGame();
 
-},10000);
+}, 10000);
 
 //=========================
 // START GAME
