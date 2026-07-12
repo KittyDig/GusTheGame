@@ -31,12 +31,12 @@ const moveRightButton =
 
 const itemTypes = [
     {
-        image: "assets/icon/normalFish.png",
+        image: "assets/icon/fishNormal.png",
         value: 2,
         chance: 0.65
     },
     {
-        image: "assets/icon/goldenFish.png",
+        image: "assets/icon/fishGolden.png",
         value: 5,
         chance: 0.15
     },
