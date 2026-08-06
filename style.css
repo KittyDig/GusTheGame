@@ -488,3 +488,30 @@ body {
   transform: scale(0.95);
   filter: brightness(0.8);
 }
+
+.shop-coins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    margin: 12px 0 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.shop-coins img {
+    width: 28px;
+    image-rendering: pixelated;
+}
+
+.shop-message {
+    min-height: 24px;
+    margin: 16px 0;
+    font-weight: bold;
+}
+
+.shop-action:disabled {
+    opacity: 0.6;
+    cursor: default;
+}

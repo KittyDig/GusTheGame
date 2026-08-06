@@ -8,8 +8,13 @@ let game = {
     energy: 70,
     coins: 0,
 
-    // Stores the currently equipped Gus outfit.
-    currentCat: "gusOG"
+    currentCat: "gusOG",
+    currentCase: "greyTG",
+    currentBackground: "sunny",
+
+    ownedCats: ["gusOG"],
+    ownedCases: ["greyTG"],
+    ownedBackgrounds: ["sunny"]
 };
 
 //=========================
@@ -320,6 +325,215 @@ function selectMenuItem() {
             break;
     }
 }
+
+//=========================
+// DEFAULT SAVE DATA
+//=========================
+
+const defaultGame = {
+    hunger: 70,
+    happiness: 70,
+    energy: 70,
+    coins: 0,
+
+    currentCat: "gusOG",
+    currentCase: "greyTG",
+    currentBackground: "sunny",
+
+    ownedCats: ["gusOG"],
+    ownedCases: ["greyTG"],
+    ownedBackgrounds: ["sunny"]
+};
+
+//=========================
+// LOAD SHOP DATA
+//=========================
+
+function loadGame() {
+
+    const savedGame =
+        localStorage.getItem("catTamagotchiSave");
+
+    if (!savedGame) {
+        return { ...defaultGame };
+    }
+
+    const parsedSave =
+        JSON.parse(savedGame);
+
+    return {
+        ...defaultGame,
+        ...parsedSave,
+
+        ownedCats:
+            parsedSave.ownedCats || ["gusOG"],
+
+        ownedCases:
+            parsedSave.ownedCases || ["greyTG"],
+
+        ownedBackgrounds:
+            parsedSave.ownedBackgrounds || ["sunny"]
+    };
+}
+
+let game = loadGame();
+
+//=========================
+// SAVE SHOP DATA
+//=========================
+
+function saveGame() {
+
+    localStorage.setItem(
+        "catTamagotchiSave",
+        JSON.stringify(game)
+    );
+}
+
+//=========================
+// SHOP DISPLAY
+//=========================
+
+const coinDisplay =
+    document.getElementById("shopCoins");
+
+const messageDisplay =
+    document.getElementById("shopMessage");
+
+const shopButtons =
+    document.querySelectorAll(".shop-action");
+
+function showMessage(message) {
+
+    messageDisplay.textContent =
+        message;
+
+    clearTimeout(showMessage.timeout);
+
+    showMessage.timeout =
+        setTimeout(function() {
+
+            messageDisplay.textContent = "";
+
+        }, 2200);
+}
+
+function updateShop() {
+
+    coinDisplay.textContent =
+        game.coins;
+
+    shopButtons.forEach(function(button) {
+
+        const itemName =
+            button.dataset.item;
+
+        const isOwned =
+            game.ownedCats.includes(itemName);
+
+        const isEquipped =
+            game.currentCat === itemName;
+
+        if (isEquipped) {
+
+            button.textContent =
+                "Equipped";
+
+            button.disabled = true;
+
+        } else if (isOwned) {
+
+            button.textContent =
+                "Equip";
+
+            button.disabled = false;
+
+        } else {
+
+            button.textContent =
+                "Buy";
+
+            button.disabled = false;
+        }
+    });
+}
+
+//=========================
+// BUY OR EQUIP CAT
+//=========================
+
+function handleShopButton(event) {
+
+    const button =
+        event.currentTarget;
+
+    const itemName =
+        button.dataset.item;
+
+    const price =
+        Number(button.dataset.price);
+
+    const isOwned =
+        game.ownedCats.includes(itemName);
+
+    if (isOwned) {
+
+        game.currentCat =
+            itemName;
+
+        saveGame();
+        updateShop();
+
+        showMessage(
+            "Outfit equipped!"
+        );
+
+        return;
+    }
+
+    if (game.coins < price) {
+
+        showMessage(
+            "You do not have enough coins."
+        );
+
+        return;
+    }
+
+    game.coins -= price;
+
+    game.ownedCats.push(
+        itemName
+    );
+
+    game.currentCat =
+        itemName;
+
+    saveGame();
+    updateShop();
+
+    showMessage(
+        "Purchased and equipped!"
+    );
+}
+
+//=========================
+// SHOP BUTTON EVENTS
+//=========================
+
+shopButtons.forEach(function(button) {
+
+    button.addEventListener(
+        "click",
+        handleShopButton
+    );
+});
+
+//=========================
+// START SHOP
+//=========================
+
+updateShop();
 
 //=========================
 // SAVE / LOAD

@@ -2,67 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no"
+    >
 
     <link rel="stylesheet" href="style.css">
 
+    <title>Clothes Shop</title>
 </head>
 
 <body>
 
 <main class="game-wrapper">
 
-    <div class="shop-placeholder">
+    <h1>Clothes Shop</h1>
 
-        <h1>Welcome to my clothes shop!</h1>
+    <div class="shop-coins">
+        <img src="assets/icon/coin.png" alt="">
+        <span id="shopCoins">0</span>
+    </div>
 
-        <img src="assets/icon/clothes.gif" alt="Clothes Shop">
+    <div class="clothes-grid">
+
+        <div class="clothes-item" data-item="gusOG" data-price="0">
+            <img src="assets/cat/gusOG.gif" alt="Original Gus">
+            <h2>Original Gus</h2>
+            <p>Free</p>
+
+            <button
+                class="shop-action"
+                data-item="gusOG"
+                data-price="0"
+            >
+                Equip
+            </button>
+        </div>
+
+        <div class="clothes-item" data-item="gusAngel" data-price="100">
+            <img src="assets/cat/gusAngel.gif" alt="Angel Gus">
+            <h2>Angel Gus</h2>
+            <p>100 coins</p>
+
+            <button
+                class="shop-action"
+                data-item="gusAngel"
+                data-price="100"
+            >
+                Buy
+            </button>
+        </div>
+
+        <div class="clothes-item" data-item="gusBoy" data-price="100">
+            <img src="assets/cat/gusBoy.gif" alt="Boy Gus">
+            <h2>Boy Gus</h2>
+            <p>100 coins</p>
+
+            <button
+                class="shop-action"
+                data-item="gusBoy"
+                data-price="100"
+            >
+                Buy
+            </button>
+        </div>
+
+        <div class="clothes-item" data-item="gusMush" data-price="150">
+            <img src="assets/cat/gusMush.gif" alt="Mushroom Gus">
+            <h2>Mushroom Gus</h2>
+            <p>150 coins</p>
+
+            <button
+                class="shop-action"
+                data-item="gusMush"
+                data-price="150"
+            >
+                Buy
+            </button>
+        </div>
+
+        <div class="clothes-item" data-item="gusVamp" data-price="150">
+            <img src="assets/cat/gusVamp.gif" alt="Vampire Gus">
+            <h2>Vampire Gus</h2>
+            <p>150 coins</p>
+
+            <button
+                class="shop-action"
+                data-item="gusVamp"
+                data-price="150"
+            >
+                Buy
+            </button>
+        </div>
 
     </div>
 
-  <div class="clothes-grid">
+    <p id="shopMessage" class="shop-message"></p>
 
-    <div class="clothes-item">
-      <img src="assets/cat/gusOG.gif" alt="Original Gus">
-      <h2>Gus</h2>
-      <p>Free</p>
-      <button>Equip</button>
-    </div>
+    <button
+        class="back-button"
+        onclick="window.location.href='shop.html'"
+    >
+        ← Back to Shop
+    </button>
 
-    <div class="clothes-item">
-      <img src="assets/cat/gusAngel.gif" alt="Angel Gus">
-      <h2>Angel Gus</h2>
-      <p>100 coins</p>
-      <button>Buy</button>
-    </div>
-
-    <div class="clothes-item">
-      <img src="assets/cat/gusBoy.gif" alt="Boy Gus">
-      <h2>Cowboy Gus</h2>
-      <p>100 coins</p>
-      <button>Buy</button>
-    </div>
-
-    <div class="clothes-item">
-      <img src="assets/cat/gusMush.gif" alt="Mushroom Gus">
-      <h2>Mushroom Gus</h2>
-      <p>150 coins</p>
-      <button>Buy</button>
-    </div>
-
-    <div class="clothes-item">
-      <img src="assets/cat/gusVamp.gif" alt="Vampire Gus">
-      <h2>Vampire Gus</h2>
-      <p>150 coins</p>
-      <button>Buy</button>
-    </div>
-
-  </div>
-
-  <button class="back-button" onclick="window.location.href='shop.html'">
-    ← Back to Shop
-  </button>
 </main>
+
+<script src="clothesShop.js"></script>
 
 </body>
 </html>
