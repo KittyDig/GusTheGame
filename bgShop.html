@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no"
+    >
 
     <link rel="stylesheet" href="style.css">
 
@@ -15,24 +20,99 @@
 
     <h1>Background Shop</h1>
 
-    <div class="shop-placeholder">
+    <div class="shop-coins">
+        <img src="assets/icon/coin.png" alt="Coin">
+        <span id="shopCoins">0</span>
+    </div>
 
-        <img src="assets/icon/bgs.gif" alt="Background Shop">
+    <div class="background-grid">
 
-        <h2>Coming Soon!</h2>
+        <div class="background-item">
+            <img
+                src="assets/background/sunny.png"
+                alt="Sunny background"
+            >
 
-        <p>
-            Unlock new places for Gus to explore.
-        </p>
+            <h2>Sunny Day</h2>
+            <p>Free</p>
+
+            <button
+                class="background-shop-action"
+                data-item="sunny"
+                data-price="0"
+            >
+                Equip
+            </button>
+        </div>
+
+        <div class="background-item">
+            <img
+                src="assets/background/gay.png"
+                alt="Rainbow background"
+            >
+
+            <h2>Rainbow</h2>
+            <p>100 coins</p>
+
+            <button
+                class="background-shop-action"
+                data-item="gay"
+                data-price="100"
+            >
+                Buy
+            </button>
+        </div>
+
+        <div class="background-item">
+            <img
+                src="assets/background/night.png"
+                alt="Night background"
+            >
+
+            <h2>Night</h2>
+            <p>125 coins</p>
+
+            <button
+                class="background-shop-action"
+                data-item="night"
+                data-price="125"
+            >
+                Buy
+            </button>
+        </div>
+
+        <div class="background-item">
+            <img
+                src="assets/background/snow.png"
+                alt="Snow background"
+            >
+
+            <h2>Snow Day</h2>
+            <p>150 coins</p>
+
+            <button
+                class="background-shop-action"
+                data-item="snow"
+                data-price="150"
+            >
+                Buy
+            </button>
+        </div>
 
     </div>
 
-    <button class="back-button"
-        onclick="window.location.href='shop.html'">
+    <p id="shopMessage" class="shop-message"></p>
+
+    <button
+        class="back-button"
+        onclick="window.location.href='shop.html'"
+    >
         ← Back to Shop
     </button>
 
 </main>
+
+<script src="bgShop.js"></script>
 
 </body>
 </html>

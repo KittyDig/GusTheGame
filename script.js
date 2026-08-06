@@ -327,6 +327,32 @@ function selectMenuItem() {
 }
 
 //=========================
+// BACKGROUND DISPLAY
+//=========================
+
+function getCurrentBackground() {
+
+    return "assets/background/" +
+        game.currentBackground +
+        ".png";
+}
+
+function showCurrentBackground() {
+
+    const backgroundSprite =
+        document.getElementById(
+            "backgroundSprite"
+        );
+
+    if (!backgroundSprite) {
+        return;
+    }
+
+    backgroundSprite.src =
+        getCurrentBackground();
+}
+
+//=========================
 // SAVE / LOAD
 //=========================
 
@@ -351,9 +377,10 @@ function loadGame() {
         };
     }
 
-    showCurrentCat();
+showCurrentCat();
+showCurrentBackground();
+updateGame();
 
-    updateGame();
 }
 
 //=========================

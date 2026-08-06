@@ -515,3 +515,70 @@ body {
     opacity: 0.6;
     cursor: default;
 }
+
+/* =========================
+   BACKGROUND SHOP
+========================= */
+
+.background-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+
+    width: 320px;
+    max-width: 90vw;
+
+    margin: 20px auto;
+}
+
+.background-item {
+    padding: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.65);
+
+    border-radius: 18px;
+
+    text-align: center;
+}
+
+.background-item img {
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+
+    image-rendering: pixelated;
+
+    border-radius: 8px;
+}
+
+.background-item h2 {
+    margin: 10px 0 4px;
+}
+
+.background-item p {
+    margin: 4px 0 12px;
+    font-weight: bold;
+}
+
+.background-shop-action {
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #555;
+    color: white;
+
+    font-size: 16px;
+
+    touch-action: manipulation;
+}
+
+.background-shop-action:active {
+    transform: scale(0.95);
+}
+
+.background-shop-action:disabled {
+    opacity: 0.6;
+}
