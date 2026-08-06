@@ -353,6 +353,32 @@ function showCurrentBackground() {
 }
 
 //=========================
+// CASE DISPLAY
+//=========================
+
+function getCurrentCase() {
+
+    return "assets/case/" +
+        game.currentCase +
+        ".png";
+}
+
+function showCurrentCase() {
+
+    const caseSprite =
+        document.getElementById(
+            "caseSprite"
+        );
+
+    if (!caseSprite) {
+        return;
+    }
+
+    caseSprite.src =
+        getCurrentCase();
+}
+
+//=========================
 // SAVE / LOAD
 //=========================
 
@@ -376,9 +402,10 @@ function loadGame() {
             ...savedGame
         };
     }
-
+    
 showCurrentCat();
 showCurrentBackground();
+showCurrentCase();
 updateGame();
 
 }

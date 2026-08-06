@@ -582,3 +582,71 @@ body {
 .background-shop-action:disabled {
     opacity: 0.6;
 }
+
+/* =========================
+   CASE SHOP
+========================= */
+
+.case-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+
+    width: 320px;
+    max-width: 90vw;
+
+    margin: 20px auto;
+}
+
+.case-item {
+    padding: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.65);
+
+    border-radius: 18px;
+    text-align: center;
+}
+
+.case-item img {
+    width: 170px;
+    max-width: 100%;
+    height: auto;
+
+    display: block;
+    margin: 0 auto;
+
+    image-rendering: pixelated;
+}
+
+.case-item h2 {
+    margin: 10px 0 4px;
+}
+
+.case-item p {
+    margin: 4px 0 12px;
+    font-weight: bold;
+}
+
+.case-shop-action {
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #555;
+    color: white;
+
+    font-size: 16px;
+
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.case-shop-action:active {
+    transform: scale(0.95);
+}
+
+.case-shop-action:disabled {
+    opacity: 0.6;
+}
