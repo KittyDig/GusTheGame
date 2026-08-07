@@ -402,7 +402,7 @@ function loadGame() {
             ...savedGame
         };
     }
-    
+
 showCurrentCat();
 showCurrentBackground();
 showCurrentCase();
@@ -411,7 +411,7 @@ updateGame();
 }
 
 //=========================
-// GAME LOOP
+// Game loop
 //=========================
 
 setInterval(function() {
