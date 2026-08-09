@@ -200,11 +200,13 @@ document.querySelectorAll(
 
 function feedCat() {
 
+    if (game.hunger >= 100) {
+        showGameMessage("Gus isn't hungry!");
+        return;
+    }
+
     game.hunger =
-        Math.min(
-            game.hunger + 10,
-            100
-        );
+        Math.min(game.hunger + 10, 100);
 
     game.coins += 2;
 
@@ -213,13 +215,25 @@ function feedCat() {
     updateGame();
 }
 
+
 function openGames() {
+
+    // Do not allow playing if happiness is already full
+    if (game.happiness >= 100) {
+        return;
+    }
 
     window.location.href =
         "games.html";
 }
 
+
 function playCat() {
+
+    // Do not reward anything if happiness is already full
+    if (game.happiness >= 100) {
+        return;
+    }
 
     game.happiness =
         Math.min(
@@ -238,23 +252,29 @@ function playCat() {
     updateGame();
 }
 
+
 function sleepCat() {
 
+    // Do not allow sleeping if energy is already full
+    if (game.energy >= 100) {
+        return;
+    }
+
     game.energy =
-        Math.min(game.energy + 15, 100);
+        Math.min(
+            game.energy + 15,
+            100
+        );
 
     game.hunger =
-        Math.max(game.hunger - 5, 0);
+        Math.max(
+            game.hunger - 5,
+            0
+        );
 
     playAnimation("sleep", 3600);
 
     updateGame();
-}
-
-function openShop() {
-
-    window.location.href =
-        "shop.html";
 }
 
 //=========================
