@@ -203,6 +203,10 @@ function showGameMessage(message) {
     const messageBox =
         document.getElementById("gameMessage");
 
+    if (!messageBox) {
+        return;
+    }
+
     messageBox.textContent =
         message;
 
@@ -218,13 +222,14 @@ function showGameMessage(message) {
         }, 2000);
 }
 
+
 //=========================
 // BUTTON ACTIONS
 //=========================
 
 function feedCat() {
 
-    // Stop if Gus is already full
+    // Gus cannot eat if hunger is already full
     if (game.hunger >= 100) {
 
         showGameMessage(
@@ -253,41 +258,15 @@ function feedCat() {
 
 function openGames() {
 
-    // Games are ALWAYS available,
-    // even when happiness is full
+    // Games are always available
     window.location.href =
         "games.html";
 }
 
 
-function playCat() {
-
-    // Do not reward anything if happiness is already full
-    if (game.happiness >= 100) {
-        return;
-    }
-
-    game.happiness =
-        Math.min(
-            game.happiness + 10,
-            100
-        );
-
-    game.energy =
-        Math.max(
-            game.energy - 5,
-            0
-        );
-
-    game.coins += 3;
-
-    updateGame();
-}
-
-
 function sleepCat() {
 
-    // Stop if Gus already has full energy
+    // Gus cannot sleep if energy is already full
     if (game.energy >= 100) {
 
         showGameMessage(
@@ -317,6 +296,12 @@ function sleepCat() {
     updateGame();
 }
 
+
+function openShop() {
+
+    window.location.href =
+        "shop.html";
+}
 //=========================
 // TAMA BUTTONS
 //=========================
@@ -471,9 +456,10 @@ updateGame();
 }
 
 //=========================
-// Game loop
+// GAME LOOPS
 //=========================
 
+// Hunger decreases every 5 minutes
 setInterval(function() {
 
     game.hunger =
@@ -482,11 +468,27 @@ setInterval(function() {
             0
         );
 
+    updateGame();
+
+}, 5 * 60 * 1000);
+
+
+// Happiness decreases every 3 minutes
+setInterval(function() {
+
     game.happiness =
         Math.max(
             game.happiness - 1,
             0
         );
+
+    updateGame();
+
+}, 3 * 60 * 1000);
+
+
+// Energy decreases every 6 minutes
+setInterval(function() {
 
     game.energy =
         Math.max(
@@ -496,7 +498,7 @@ setInterval(function() {
 
     updateGame();
 
-}, 10000);
+}, 6 * 60 * 1000);
 
 //=========================
 // START GAME
