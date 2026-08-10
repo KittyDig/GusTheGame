@@ -282,6 +282,12 @@ function feedCat() {
 
     }, 1100);
 
+        setTimeout(function() {
+
+        playMunchSound();
+
+    }, 1100);
+
     updateGame();
 
     // Eating animation lasts 5.2 seconds.
