@@ -40,9 +40,12 @@ let boardLocked = false;
 
 let matches = 0;
 
-// Coins the player WILL earn if
-// they finish the whole board
-let coinsEarned = 0;
+// Player starts with a potential
+// reward of 50 coins
+let coinsEarned = 50;
+
+// Reward can never fall below this
+const minimumReward = 20;
 
 // Stops the reward being given twice
 let gameFinished = false;
@@ -151,33 +154,53 @@ function checkMatch() {
 
     if (isMatch) {
 
-        firstCard.classList.add("matched");
-        secondCard.classList.add("matched");
+        firstCard.classList.add(
+            "matched"
+        );
+
+        secondCard.classList.add(
+            "matched"
+        );
 
         matches++;
-
-        // This is only a potential reward.
-        // It has NOT been added to their save yet.
-        coinsEarned += 2;
 
         updateMatchDisplay();
 
         resetCards();
 
-        // Only finish once ALL pairs
-        // have been found
-        if (matches === gusCards.length) {
+        // Check whether every pair
+        // has now been found
+        if (
+            matches ===
+            gusCards.length
+        ) {
+
             finishMatchGame();
         }
 
     } else {
 
+        // Wrong match!
+        // Remove 5 from the potential reward
+        coinsEarned =
+            Math.max(
+                minimumReward,
+                coinsEarned - 5
+            );
+
+        updateMatchDisplay();
+
         boardLocked = true;
 
         setTimeout(function() {
 
-            firstCard.classList.remove("flipped");
-            secondCard.classList.remove("flipped");
+            firstCard.classList.remove(
+                "flipped"
+            );
+
+            secondCard.classList.remove(
+                "flipped"
+            );
 
             resetCards();
 
@@ -198,7 +221,6 @@ function resetCards() {
     boardLocked = false;
 }
 
-
 //=========================
 // UPDATE DISPLAY
 //=========================
@@ -216,15 +238,13 @@ function updateMatchDisplay() {
         coinsEarned;
 }
 
-
 //=========================
 // FINISH GAME
 //=========================
 
 function finishMatchGame() {
 
-    // Prevent the reward being given
-    // more than once
+    // Prevent duplicate rewards
     if (gameFinished) {
         return;
     }
@@ -241,12 +261,14 @@ function finishMatchGame() {
         const game =
             JSON.parse(save);
 
-        // NOW the coins are actually awarded
+        // Only NOW are the coins
+        // added to the real balance
         game.coins =
             (game.coins || 0) +
             coinsEarned;
 
-        // Playing also makes Gus happier
+        // Completing the game also
+        // increases happiness
         game.happiness =
             Math.min(
                 (game.happiness || 0) + 10,
