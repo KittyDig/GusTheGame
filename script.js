@@ -195,22 +195,57 @@ document.querySelectorAll(
 });
 
 //=========================
+// GAME MESSAGE
+//=========================
+
+function showGameMessage(message) {
+
+    const messageBox =
+        document.getElementById("gameMessage");
+
+    messageBox.textContent =
+        message;
+
+    messageBox.classList.add("show");
+
+    clearTimeout(showGameMessage.timeout);
+
+    showGameMessage.timeout =
+        setTimeout(function() {
+
+            messageBox.classList.remove("show");
+
+        }, 2000);
+}
+
+//=========================
 // BUTTON ACTIONS
 //=========================
 
 function feedCat() {
 
+    // Stop if Gus is already full
     if (game.hunger >= 100) {
-        showGameMessage("Gus isn't hungry!");
+
+        showGameMessage(
+            "Gus is already full!"
+        );
+
         return;
     }
 
     game.hunger =
-        Math.min(game.hunger + 10, 100);
+        Math.min(
+            game.hunger + 10,
+            100
+        );
 
     game.coins += 2;
 
-    playAnimation("eat", 5200);
+    playAnimation(
+        "eat",
+        5200
+    );
 
     updateGame();
 }
@@ -218,11 +253,8 @@ function feedCat() {
 
 function openGames() {
 
-    // Do not allow playing if happiness is already full
-    if (game.happiness >= 100) {
-        return;
-    }
-
+    // Games are ALWAYS available,
+    // even when happiness is full
     window.location.href =
         "games.html";
 }
@@ -255,8 +287,13 @@ function playCat() {
 
 function sleepCat() {
 
-    // Do not allow sleeping if energy is already full
+    // Stop if Gus already has full energy
     if (game.energy >= 100) {
+
+        showGameMessage(
+            "Gus isn't sleepy!"
+        );
+
         return;
     }
 
@@ -272,7 +309,10 @@ function sleepCat() {
             0
         );
 
-    playAnimation("sleep", 3600);
+    playAnimation(
+        "sleep",
+        3600
+    );
 
     updateGame();
 }

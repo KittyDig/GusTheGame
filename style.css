@@ -650,3 +650,16 @@ body {
 .case-shop-action:disabled {
     opacity: 0.6;
 }
+
+.game-message {
+    min-height: 24px;
+    margin: 10px auto;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.game-message.show {
+    opacity: 1;
+}
