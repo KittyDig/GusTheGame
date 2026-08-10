@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Gus Match</title>
+</head>
+
+<body>
+
+<main class="game-wrapper">
+
+    <h1>Gus Match</h1>
+
+    <p>Find all the matching Guses!</p>
+
+    <div class="match-info">
+        <span>Matches: <span id="matchCount">0</span>/6</span>
+
+<span class="coins">
+    Reward:
+    <img src="assets/icon/coin.png" alt="Coin">
+    <span id="matchCoins">0</span>
+</span>
+    </div>
+
+    <div
+        id="matchGrid"
+        class="match-grid"
+    ></div>
+
+    <p
+        id="matchMessage"
+        class="match-message"
+    ></p>
+
+    <button
+        class="back-button"
+        onclick="window.location.href='games.html'"
+    >
+        ← Back to Games
+    </button>
+
+</main>
+
+<script src="matchGame.js"></script>
+
+</body>
+</html>
