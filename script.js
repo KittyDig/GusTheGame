@@ -122,6 +122,16 @@ function playAnimation(type, duration = 1200) {
 }
 
 //=========================
+// ACTION LOCKS
+//=========================
+
+let isFeeding = false;
+
+// Load sound once so it is ready to play
+const munchSound =
+    new Audio("assets/sound/munch.mp3");
+
+//=========================
 // UPDATE UI
 //=========================
 
@@ -229,7 +239,12 @@ function showGameMessage(message) {
 
 function feedCat() {
 
-    // Gus cannot eat if hunger is already full
+    // Ignore taps while eating
+    if (isFeeding) {
+        return;
+    }
+
+    // Don't feed if already full
     if (game.hunger >= 100) {
 
         showGameMessage(
@@ -239,6 +254,10 @@ function feedCat() {
         return;
     }
 
+    // Lock feeding immediately
+    isFeeding = true;
+
+    // Increase stats/reward
     game.hunger =
         Math.min(
             game.hunger + 10,
@@ -247,14 +266,47 @@ function feedCat() {
 
     game.coins += 2;
 
+    // Start eating animation
     playAnimation(
         "eat",
         5200
     );
 
+    // First munch
+    playMunchSound();
+
+    // Second munch slightly later
+    setTimeout(function() {
+
+        playMunchSound();
+
+    }, 1100);
+
     updateGame();
+
+    // Eating animation lasts 5.2 seconds.
+    // Feed becomes available again afterwards.
+    setTimeout(function() {
+
+        isFeeding = false;
+
+    }, 5200);
 }
 
+function playMunchSound() {
+
+    // Restart the sound from the beginning
+    munchSound.currentTime = 0;
+
+    munchSound.play().catch(function(error) {
+
+        console.log(
+            "Munch sound could not play:",
+            error
+        );
+
+    });
+}
 
 function openGames() {
 
@@ -350,6 +402,15 @@ function selectMenuItem() {
         menuItems[
             currentMenuIndex
         ].name;
+
+    // Gus is currently eating.
+    // Ignore another Feed press.
+    if (
+        selectedItem === "Feed" &&
+        isFeeding
+    ) {
+        return;
+    }
 
     switch(selectedItem) {
 
