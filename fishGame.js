@@ -1,10 +1,11 @@
-// fish catching game
+//=========================
+// FISH CATCHING GAME
+//=========================
 
 let score = 0;
 let timeRemaining = 20;
 let gameFinished = false;
-
-let catPosition = 50;
+let isDragging = false;
 
 const gameArea =
     document.getElementById("fishGameArea");
@@ -21,22 +22,21 @@ const scoreDisplay =
 const timeDisplay =
     document.getElementById("fishTime");
 
-const moveLeftButton =
-    document.getElementById("moveLeft");
 
-const moveRightButton =
-    document.getElementById("moveRight");
+//=========================
+// FISH TYPES
+//=========================
 
 const itemTypes = [
     {
         type: "fish",
-        image: "assets/icon/normalFish.png",
+        image: "assets/icon/fishNormal.png",
         value: 2,
         chance: 0.65
     },
     {
         type: "golden",
-        image: "assets/icon/goldenFish.png",
+        image: "assets/icon/fishGolden.png",
         value: 5,
         chance: 0.15
     },
@@ -47,6 +47,7 @@ const itemTypes = [
         chance: 0.20
     }
 ];
+
 
 //=========================
 // SOUND EFFECTS
@@ -65,73 +66,106 @@ function playMunchSound() {
             "Munch sound could not play:",
             error
         );
-
     });
 }
 
-// fishy types
 
-const itemTypes = [
-    {
-        image: "assets/icon/fishNormal.png",
-        value: 2,
-        chance: 0.65
-    },
-    {
-        image: "assets/icon/fishGolden.png",
-        value: 5,
-        chance: 0.15
-    },
-    {
-        image: "assets/icon/fishBone.png",
-        value: -2,
-        chance: 0.20
+//=========================
+// DRAG GUS
+//=========================
+
+function moveCatToPointer(event) {
+
+    if (!isDragging || gameFinished) {
+        return;
     }
-];
 
-// move Gus
+    const gameBox =
+        gameArea.getBoundingClientRect();
 
-function updateCatPosition() {
+    const catWidth =
+        catcherCat.offsetWidth;
+
+    let newLeft =
+        event.clientX - gameBox.left;
+
+    const minimumLeft =
+        catWidth / 2;
+
+    const maximumLeft =
+        gameBox.width - catWidth / 2;
+
+    newLeft =
+        Math.max(
+            minimumLeft,
+            Math.min(
+                newLeft,
+                maximumLeft
+            )
+        );
 
     catcherCat.style.left =
-        catPosition + "%";
+        newLeft + "px";
 }
 
-function moveCatLeft() {
 
-    if (gameFinished) {
-        return;
-    }
-
-    catPosition =
-        Math.max(catPosition - 10, 12);
-
-    updateCatPosition();
-}
-
-function moveCatRight() {
-
-    if (gameFinished) {
-        return;
-    }
-
-    catPosition =
-        Math.min(catPosition + 10, 88);
-
-    updateCatPosition();
-}
-
-moveLeftButton.addEventListener(
+gameArea.addEventListener(
     "pointerdown",
-    moveCatLeft
+    function(event) {
+
+        if (gameFinished) {
+            return;
+        }
+
+        isDragging = true;
+
+        gameArea.setPointerCapture(
+            event.pointerId
+        );
+
+        moveCatToPointer(event);
+    }
 );
 
-moveRightButton.addEventListener(
-    "pointerdown",
-    moveCatRight
+
+gameArea.addEventListener(
+    "pointermove",
+    moveCatToPointer
 );
 
-// choose random fish
+
+gameArea.addEventListener(
+    "pointerup",
+    function(event) {
+
+        isDragging = false;
+
+        if (
+            gameArea.hasPointerCapture(
+                event.pointerId
+            )
+        ) {
+
+            gameArea.releasePointerCapture(
+                event.pointerId
+            );
+        }
+    }
+);
+
+
+gameArea.addEventListener(
+    "pointercancel",
+    function() {
+
+        isDragging = false;
+    }
+);
+
+
+//=========================
+// CHOOSE RANDOM FISH
+//=========================
 
 function chooseItemType() {
 
@@ -142,9 +176,14 @@ function chooseItemType() {
 
     for (const item of itemTypes) {
 
-        runningChance += item.chance;
+        runningChance +=
+            item.chance;
 
-        if (randomNumber <= runningChance) {
+        if (
+            randomNumber <=
+            runningChance
+        ) {
+
             return item;
         }
     }
@@ -152,7 +191,10 @@ function chooseItemType() {
     return itemTypes[0];
 }
 
-// open Gus's mouth / new image
+
+//=========================
+// OPEN GUS'S MOUTH
+//=========================
 
 function openMouth() {
 
@@ -167,7 +209,10 @@ function openMouth() {
     }, 220);
 }
 
-// create falling fishies
+
+//=========================
+// CREATE FALLING FISH
+//=========================
 
 function createFallingItem() {
 
@@ -181,25 +226,38 @@ function createFallingItem() {
     const item =
         document.createElement("img");
 
-    item.src = itemData.image;
+    item.src =
+        itemData.image;
+
     item.alt = "";
-    item.className = "falling-item";
+
+    item.className =
+        "falling-item";
+
+    fallingItemsContainer
+        .appendChild(item);
+
 
     const maximumLeft =
-        gameArea.clientWidth - 38;
+        gameArea.clientWidth -
+        item.offsetWidth;
 
     const randomLeft =
-        Math.floor(Math.random() * maximumLeft);
+        Math.floor(
+            Math.random() *
+            Math.max(maximumLeft, 1)
+        );
 
     item.style.left =
         randomLeft + "px";
 
-    fallingItemsContainer.appendChild(item);
 
-    let itemTop = -45;
+    let itemTop =
+        -item.offsetHeight;
 
     const fallSpeed =
         3 + Math.random() * 2;
+
 
     function fall() {
 
@@ -209,10 +267,13 @@ function createFallingItem() {
             return;
         }
 
-        itemTop += fallSpeed;
+
+        itemTop +=
+            fallSpeed;
 
         item.style.top =
             itemTop + "px";
+
 
         const itemBox =
             item.getBoundingClientRect();
@@ -220,45 +281,81 @@ function createFallingItem() {
         const catBox =
             catcherCat.getBoundingClientRect();
 
+
         const caught =
-            itemBox.bottom >= catBox.top + 20 &&
-            itemBox.top <= catBox.bottom &&
-            itemBox.right >= catBox.left + 15 &&
-            itemBox.left <= catBox.right - 15;
+            itemBox.bottom >=
+                catBox.top + 20 &&
 
-if (caught) {
+            itemBox.top <=
+                catBox.bottom &&
 
-    score += itemData.value;
+            itemBox.right >=
+                catBox.left + 15 &&
 
-    score =
-        Math.max(score, 0);
+            itemBox.left <=
+                catBox.right - 15;
 
-    scoreDisplay.textContent =
-        score;
 
-    openMouth();
+        if (caught) {
 
-    if (itemData.type !== "bone") {
-        playMunchSound();
-    }
+            score +=
+                itemData.value;
 
-    item.remove();
-    return;
-}
+            score =
+                Math.max(
+                    score,
+                    0
+                );
 
-        if (itemTop > gameArea.clientHeight) {
+            scoreDisplay.textContent =
+                score;
+
+            openMouth();
+
+
+            // Only real fish make
+            // the munch noise
+            if (
+                itemData.type !==
+                "bone"
+            ) {
+
+                playMunchSound();
+            }
+
 
             item.remove();
+
             return;
         }
 
-        requestAnimationFrame(fall);
+
+        if (
+            itemTop >
+            gameArea.clientHeight
+        ) {
+
+            item.remove();
+
+            return;
+        }
+
+
+        requestAnimationFrame(
+            fall
+        );
     }
 
-    requestAnimationFrame(fall);
+
+    requestAnimationFrame(
+        fall
+    );
 }
 
-// spawn fishies
+
+//=========================
+// SPAWN FISH
+//=========================
 
 const spawnTimer =
     setInterval(function() {
@@ -267,7 +364,10 @@ const spawnTimer =
 
     }, 850);
 
-//reward player with coins / happiness
+
+//=========================
+// REWARD PLAYER
+//=========================
 
 function rewardPlayer() {
 
@@ -275,6 +375,7 @@ function rewardPlayer() {
         localStorage.getItem(
             "catTamagotchiSave"
         );
+
 
     let game = save
         ? JSON.parse(save)
@@ -285,7 +386,10 @@ function rewardPlayer() {
             coins: 0
         };
 
-    game.coins += score;
+
+    game.coins +=
+        score;
+
 
     game.happiness =
         Math.min(
@@ -293,16 +397,19 @@ function rewardPlayer() {
             100
         );
 
+
     game.energy =
         Math.max(
             game.energy - 5,
             0
         );
 
+
     localStorage.setItem(
         "catTamagotchiSave",
         JSON.stringify(game)
     );
+
 
     alert(
         "Game over!\n" +
@@ -311,11 +418,19 @@ function rewardPlayer() {
         " coins!"
     );
 
+
     window.location.href =
         "games.html";
 }
 
-// start game
+
+//=========================
+// GAME TIMER
+//=========================
+
+timeDisplay.textContent =
+    timeRemaining;
+
 
 const gameTimer =
     setInterval(function() {
@@ -325,18 +440,33 @@ const gameTimer =
         timeDisplay.textContent =
             timeRemaining;
 
-        if (timeRemaining <= 0) {
 
-            clearInterval(gameTimer);
-            clearInterval(spawnTimer);
+        if (
+            timeRemaining <= 0
+        ) {
 
-            gameFinished = true;
+            clearInterval(
+                gameTimer
+            );
+
+            clearInterval(
+                spawnTimer
+            );
+
+            gameFinished =
+                true;
 
             rewardPlayer();
         }
 
     }, 1000);
 
-// start game
 
-updateCatPosition();
+//=========================
+// START GAME
+//=========================
+
+catcherCat.style.left =
+    "50%";
+
+createFallingItem();
