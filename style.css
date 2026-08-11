@@ -460,35 +460,6 @@ body {
   pointer-events: none;
 }
 
-.fish-controls {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-
-  width: 330px;
-  max-width: 90vw;
-  margin: 15px auto;
-}
-
-.fish-controls button {
-  min-height: 60px;
-  font-size: 28px;
-
-  border: none;
-  border-radius: 14px;
-
-  background: #555;
-  color: white;
-
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.fish-controls button:active {
-  transform: scale(0.95);
-  filter: brightness(0.8);
-}
-
 .shop-coins {
     display: flex;
     justify-content: center;
