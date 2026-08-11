@@ -27,6 +27,48 @@ const moveLeftButton =
 const moveRightButton =
     document.getElementById("moveRight");
 
+const itemTypes = [
+    {
+        type: "fish",
+        image: "assets/icon/normalFish.png",
+        value: 2,
+        chance: 0.65
+    },
+    {
+        type: "golden",
+        image: "assets/icon/goldenFish.png",
+        value: 5,
+        chance: 0.15
+    },
+    {
+        type: "bone",
+        image: "assets/icon/fishBone.png",
+        value: -2,
+        chance: 0.20
+    }
+];
+
+//=========================
+// SOUND EFFECTS
+//=========================
+
+const munchSound =
+    new Audio("assets/sound/munch.mp3");
+
+function playMunchSound() {
+
+    munchSound.currentTime = 0;
+
+    munchSound.play().catch(function(error) {
+
+        console.log(
+            "Munch sound could not play:",
+            error
+        );
+
+    });
+}
+
 // fishy types
 
 const itemTypes = [
@@ -184,21 +226,25 @@ function createFallingItem() {
             itemBox.right >= catBox.left + 15 &&
             itemBox.left <= catBox.right - 15;
 
-        if (caught) {
+if (caught) {
 
-            score += itemData.value;
+    score += itemData.value;
 
-            score =
-                Math.max(score, 0);
+    score =
+        Math.max(score, 0);
 
-            scoreDisplay.textContent =
-                score;
+    scoreDisplay.textContent =
+        score;
 
-            openMouth();
+    openMouth();
 
-            item.remove();
-            return;
-        }
+    if (itemData.type !== "bone") {
+        playMunchSound();
+    }
+
+    item.remove();
+    return;
+}
 
         if (itemTop > gameArea.clientHeight) {
 
