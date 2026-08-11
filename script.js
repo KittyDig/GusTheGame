@@ -286,7 +286,7 @@ function feedCat() {
 
         playMunchSound();
 
-    }, 1100);
+    }, 2200);
 
     updateGame();
 
