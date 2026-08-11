@@ -56,19 +56,28 @@ const itemTypes = [
 const munchSound =
     new Audio("assets/sound/munch.mp3");
 
+const hissSound =
+    new Audio("assets/sound/hiss.mp3");
+
+
 function playMunchSound() {
 
     munchSound.currentTime = 0;
 
     munchSound.play().catch(function(error) {
-
-        console.log(
-            "Munch sound could not play:",
-            error
-        );
+        console.log("Munch sound could not play:", error);
     });
 }
 
+
+function playHissSound() {
+
+    hissSound.currentTime = 0;
+
+    hissSound.play().catch(function(error) {
+        console.log("Hiss sound could not play:", error);
+    });
+}
 
 //=========================
 // DRAG GUS
@@ -315,13 +324,16 @@ function createFallingItem() {
 
             // Only real fish make
             // the munch noise
-            if (
-                itemData.type !==
-                "bone"
-            ) {
+if (itemData.type === "bone") {
 
-                playMunchSound();
-            }
+    // Gus is NOT happy about that!
+    playHissSound();
+
+} else {
+
+    // Normal or golden fish
+    playMunchSound();
+}
 
 
             item.remove();
