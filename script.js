@@ -292,7 +292,7 @@ function feedCat() {
 
         playMunchSound();
 
-    }, 4400);
+    }, 3300);
 
     updateGame();
 
