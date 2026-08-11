@@ -287,6 +287,12 @@ function feedCat() {
         playMunchSound();
 
     }, 2200);
+    
+        setTimeout(function() {
+
+        playMunchSound();
+
+    }, 4400);
 
     updateGame();
 
