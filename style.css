@@ -265,7 +265,41 @@ body {
 }
 
 .back-button {
-    margin-top: 20px;
+    display: block;
+
+    width: 220px;
+    max-width: 80vw;
+
+    margin: 24px auto 30px;
+    padding: 12px 18px;
+
+    /* Cute pink */
+    background: #f3a6c8;
+    color: #5c2940;
+
+    border: 3px solid #d978a5;
+    border-radius: 16px;
+
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+    /* Slightly chunky game-button look */
+    box-shadow: 0 4px 0 #c76592;
+
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        transform 0.08s ease,
+        box-shadow 0.08s ease;
+}
+
+.back-button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #c76592;
 }
 
 .clothes-grid {
