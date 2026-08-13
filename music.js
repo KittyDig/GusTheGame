@@ -88,7 +88,7 @@ function updateMusicButton() {
 
     } else {
 
-        musicToggle.textContent = "♪̸";
+        musicToggle.textContent = "×";
 
         musicToggle.setAttribute(
             "aria-label",
