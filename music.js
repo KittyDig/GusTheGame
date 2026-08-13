@@ -2,12 +2,19 @@
 // GUS BACKGROUND MUSIC
 // =========================
 
-const backgroundMusic = new Audio(
-    "assets/sound/theme.mp3"
-);
+const backgroundMusic =
+    new Audio("assets/sound/theme.mp3");
 
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.12;
+
+
+// =========================
+// MUSIC SETTINGS
+// =========================
+
+let musicEnabled =
+    localStorage.getItem("gusMusicEnabled") !== "false";
 
 
 // =========================
@@ -18,29 +25,29 @@ const savedMusicTime =
     sessionStorage.getItem("gusMusicTime");
 
 if (savedMusicTime) {
-
     backgroundMusic.currentTime =
         parseFloat(savedMusicTime);
 }
 
 
 // =========================
-// PLAY MUSIC
+// START MUSIC
 // =========================
 
 function startBackgroundMusic() {
 
+    if (!musicEnabled) {
+        return;
+    }
+
     backgroundMusic.play().catch(function() {
-
-        // Autoplay was blocked.
-        // First user interaction will start it.
-
+        // Browser is waiting for user interaction
     });
 }
 
 
 // =========================
-// SAVE POSITION
+// SAVE MUSIC POSITION
 // =========================
 
 setInterval(function() {
@@ -51,14 +58,76 @@ setInterval(function() {
             "gusMusicTime",
             backgroundMusic.currentTime
         );
-
     }
 
 }, 500);
 
 
 // =========================
-// MOBILE AUTOPLAY FIX
+// MUSIC BUTTON
+// =========================
+
+const musicToggle =
+    document.getElementById("musicToggle");
+
+
+function updateMusicButton() {
+
+    if (!musicToggle) {
+        return;
+    }
+
+    if (musicEnabled) {
+
+        musicToggle.textContent = "♪";
+
+        musicToggle.setAttribute(
+            "aria-label",
+            "Turn music off"
+        );
+
+    } else {
+
+        musicToggle.textContent = "♪̸";
+
+        musicToggle.setAttribute(
+            "aria-label",
+            "Turn music on"
+        );
+    }
+}
+
+
+if (musicToggle) {
+
+    musicToggle.addEventListener(
+        "click",
+        function() {
+
+            musicEnabled = !musicEnabled;
+
+            localStorage.setItem(
+                "gusMusicEnabled",
+                musicEnabled
+            );
+
+            if (musicEnabled) {
+
+                startBackgroundMusic();
+
+            } else {
+
+                backgroundMusic.pause();
+            }
+
+            updateMusicButton();
+        }
+    );
+}
+
+
+// =========================
+// MOBILE AUTOPLAY
 // =========================
 
 function unlockMusic() {
@@ -71,12 +140,15 @@ function unlockMusic() {
     );
 }
 
-
-// Try autoplay first
-startBackgroundMusic();
-
-// Otherwise wait for first touch
 document.addEventListener(
     "pointerdown",
     unlockMusic
 );
+
+
+// =========================
+// START
+// =========================
+
+updateMusicButton();
+startBackgroundMusic();

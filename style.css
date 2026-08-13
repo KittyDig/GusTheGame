@@ -743,3 +743,40 @@ body {
     margin-top: 15px;
     font-weight: bold;
 }
+
+.music-toggle {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+
+    width: 46px;
+    height: 46px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f3a6c8;
+    color: #5c2940;
+
+    border: 3px solid #d978a5;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 0 #c76592;
+
+    font-size: 25px;
+    font-weight: bold;
+
+    cursor: pointer;
+    z-index: 1000;
+
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.music-toggle:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #c76592;
+}
