@@ -9,21 +9,41 @@
 
 <body>
   <main class="game-wrapper shop-page">
-    <h1>Shopping Street</h1>
 
     <div class="shopping-street">
 
-      <a href="casesShop.html" class="street-shop cases-door">
-        <img src="assets/icon/casesShop.png" alt="Case shop">
-      </a>
+<a
+    href="casesShop.html"
+    class="street-shop cases-door"
+    onclick="enterShop(event, 'casesShop.html')"
+>
+    <img
+        src="assets/icon/casesShop.png"
+        alt="Case shop"
+    >
+</a>
 
-      <a href="clothesShop.html" class="street-shop clothes-door">
-        <img src="assets/icon/clothesShop.png" alt="Clothes shop">
-      </a>
+<a
+    href="clothesShop.html"
+    class="street-shop clothes-door"
+    onclick="enterShop(event, 'clothesShop.html')"
+>
+    <img
+        src="assets/icon/clothesShop.png"
+        alt="Clothes shop"
+    >
+</a>
 
-      <a href="bgShop.html" class="street-shop bg-door">
-        <img src="assets/icon/bgShop.png" alt="Background shop">
-      </a>
+<a
+    href="bgShop.html"
+    class="street-shop bg-door"
+    onclick="enterShop(event, 'bgShop.html')"
+>
+    <img
+        src="assets/icon/bgShop.png"
+        alt="Background shop"
+    >
+</a>
     </div>
 
     <button class="back-button" onclick="window.location.href='index.html'">
@@ -31,5 +51,6 @@
     </button>
   </main>
   <script src="music.js"></script>
+  <script src="shop.js"></script>
 </body>
 </html>
