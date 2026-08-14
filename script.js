@@ -14,7 +14,17 @@ let game = {
 
     ownedCats: ["gusOG"],
     ownedCases: ["greyTG"],
-    ownedBackgrounds: ["sunny"]
+    ownedBackgrounds: ["sunny"],
+
+    lastHungerUpdate: Date.now(),
+    lastHappinessUpdate: Date.now(),
+    lastEnergyUpdate: Date.now(),
+
+    lastBreakfast: null,
+    lastDinner: null
+
+    lastBreakfastMessage: null,
+    lastDinnerMessage: null
 };
 
 
@@ -415,17 +425,51 @@ function feedCat() {
         return;
     }
 
+    const meal =
+    getCurrentMeal();
+
+const today =
+    getTodayKey();
+
+
+if (meal === "breakfast") {
+
+    game.lastBreakfast =
+        today;
+}
+
+
+if (meal === "dinner") {
+
+    game.lastDinner =
+        today;
+}
 
     // Lock feeding
     isFeeding = true;
 
 
-    // Increase hunger
-    game.hunger =
-        Math.min(
-            game.hunger + 10,
-            100
-        );
+const currentMeal =
+    getCurrentMeal();
+
+let foodAmount = 10;
+
+
+// Breakfast/dinner fills Gus much more
+if (
+    currentMeal === "breakfast" ||
+    currentMeal === "dinner"
+) {
+
+    foodAmount = 35;
+}
+
+
+game.hunger =
+    Math.min(
+        game.hunger + foodAmount,
+        100
+    );
 
 
     // Small coin reward
@@ -714,6 +758,74 @@ function showCurrentCase() {
         getCurrentCase();
 }
 
+//=========================
+// REAL-WORLD CLOCK
+//=========================
+
+function getTodayKey() {
+
+    const now = new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        String(now.getMonth() + 1)
+            .padStart(2, "0");
+
+    const day =
+        String(now.getDate())
+            .padStart(2, "0");
+
+    return year + "-" + month + "-" + day;
+}
+
+
+//=========================
+// MEAL TIMES
+//=========================
+
+function getCurrentMeal() {
+
+    const hour =
+        new Date().getHours();
+
+    // Breakfast: 7am - 11am
+    if (hour >= 7 && hour < 11) {
+        return "breakfast";
+    }
+
+    // Dinner: 5pm - 9pm
+    if (hour >= 17 && hour < 21) {
+        return "dinner";
+    }
+
+    return null;
+}
+
+
+function hasEatenCurrentMeal() {
+
+    const today =
+        getTodayKey();
+
+    const meal =
+        getCurrentMeal();
+
+    if (meal === "breakfast") {
+
+        return game.lastBreakfast ===
+            today;
+    }
+
+    if (meal === "dinner") {
+
+        return game.lastDinner ===
+            today;
+    }
+
+    return false;
+}
 
 //=========================
 // SAVE / LOAD
@@ -773,65 +885,226 @@ function loadGame() {
         }
     }
 
+updateNeedsFromClock();
 
-    showCurrentCat();
+showCurrentCat();
+showCurrentBackground();
+showCurrentCase();
 
-    showCurrentBackground();
+updateGame();
 
-    showCurrentCase();
-
-    updateGame();
+checkMealTime();
 }
 
+//=========================
+// UPDATE NEEDS FROM CLOCK
+//=========================
 
 //=========================
-// GAME LOOPS
+// UPDATE NEEDS FROM CLOCK
 //=========================
 
-// Hunger decreases
-// every 5 minutes
+function updateNeedsFromClock() {
+
+    const now = Date.now();
+
+
+    //=========================
+    // HUNGER
+    //=========================
+
+    const hungerElapsed =
+        now - game.lastHungerUpdate;
+
+    const hungerIntervals =
+        Math.floor(
+            hungerElapsed /
+            (15 * 60 * 1000)
+        );
+
+    if (hungerIntervals > 0) {
+
+        game.hunger =
+            Math.max(
+                game.hunger -
+                hungerIntervals,
+                0
+            );
+
+        game.lastHungerUpdate +=
+            hungerIntervals *
+            15 * 60 * 1000;
+    }
+
+
+    //=========================
+    // HAPPINESS
+    //=========================
+
+    const happinessElapsed =
+        now -
+        game.lastHappinessUpdate;
+
+    const happinessIntervals =
+        Math.floor(
+            happinessElapsed /
+            (30 * 60 * 1000)
+        );
+
+    if (happinessIntervals > 0) {
+
+        game.happiness =
+            Math.max(
+                game.happiness -
+                happinessIntervals,
+                0
+            );
+
+        game.lastHappinessUpdate +=
+            happinessIntervals *
+            30 * 60 * 1000;
+    }
+
+
+    //=========================
+    // ENERGY
+    //=========================
+
+    const energyElapsed =
+        now -
+        game.lastEnergyUpdate;
+
+    const energyIntervals =
+        Math.floor(
+            energyElapsed /
+            (25 * 60 * 1000)
+        );
+
+    if (energyIntervals > 0) {
+
+        game.energy =
+            Math.max(
+                game.energy -
+                energyIntervals,
+                0
+            );
+
+        game.lastEnergyUpdate +=
+            energyIntervals *
+            25 * 60 * 1000;
+    }
+}
+
+//=========================
+// MEAL CHECK
+//=========================
+
+function checkMealTime() {
+
+    const meal =
+        getCurrentMeal();
+
+    const today =
+        getTodayKey();
+
+
+    // Not currently breakfast or dinner
+    if (!meal) {
+        return;
+    }
+
+
+    //=========================
+    // BREAKFAST
+    //=========================
+
+    if (meal === "breakfast") {
+
+        // Already eaten breakfast today
+        if (
+            game.lastBreakfast === today
+        ) {
+            return;
+        }
+
+
+        // Already showed the breakfast
+        // reminder today
+        if (
+            game.lastBreakfastMessage ===
+            today
+        ) {
+            return;
+        }
+
+
+        showGameMessage(
+            "Gus is ready for breakfast!"
+        );
+
+
+        // Remember that the message
+        // has already been shown today
+        game.lastBreakfastMessage =
+            today;
+
+        updateGame();
+
+        return;
+    }
+
+
+    //=========================
+    // DINNER
+    //=========================
+
+    if (meal === "dinner") {
+
+        // Already eaten dinner today
+        if (
+            game.lastDinner === today
+        ) {
+            return;
+        }
+
+
+        // Already showed the dinner
+        // reminder today
+        if (
+            game.lastDinnerMessage ===
+            today
+        ) {
+            return;
+        }
+
+
+        showGameMessage(
+            "Gus is ready for dinner!"
+        );
+
+
+        // Remember that the message
+        // has already been shown today
+        game.lastDinnerMessage =
+            today;
+
+        updateGame();
+    }
+}
+//=========================
+//=========================
+// LIVE NEED UPDATE
+//=========================
+
 setInterval(function() {
 
-    game.hunger =
-        Math.max(
-            game.hunger - 1,
-            0
-        );
+    updateNeedsFromClock();
 
     updateGame();
 
-}, 5 * 60 * 1000);
+    checkMealTime();
 
-
-// Happiness decreases
-// every 3 minutes
-setInterval(function() {
-
-    game.happiness =
-        Math.max(
-            game.happiness - 1,
-            0
-        );
-
-    updateGame();
-
-}, 3 * 60 * 1000);
-
-
-// Energy decreases
-// every 6 minutes
-setInterval(function() {
-
-    game.energy =
-        Math.max(
-            game.energy - 1,
-            0
-        );
-
-    updateGame();
-
-}, 6 * 60 * 1000);
-
+}, 60 * 1000);
 
 //=========================
 // START GAME
