@@ -21,7 +21,7 @@ let game = {
     lastEnergyUpdate: Date.now(),
 
     lastBreakfast: null,
-    lastDinner: null
+    lastDinner: null,
 
     lastBreakfastMessage: null,
     lastDinnerMessage: null
