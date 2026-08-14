@@ -264,7 +264,7 @@ function feedCat() {
 
     game.coins += 2;
 
-    //=========================
+//=========================
 // ACTION LOCKS
 //=========================
 
@@ -288,6 +288,7 @@ function playMunchSound() {
     munchSound.currentTime = 0;
 
     munchSound.play().catch(function(error) {
+
         console.log(
             "Munch sound could not play:",
             error
@@ -301,6 +302,7 @@ function playSnoreSound() {
     snoreSound.currentTime = 0;
 
     snoreSound.play().catch(function(error) {
+
         console.log(
             "Snore sound could not play:",
             error
@@ -308,38 +310,182 @@ function playSnoreSound() {
     });
 }
 
-    // Start eating animation
+
+//=========================
+// UPDATE UI
+//=========================
+
+function updateGame() {
+
+    document.getElementById(
+        "hungerBar"
+    ).style.width =
+        game.hunger + "%";
+
+    document.getElementById(
+        "happyBar"
+    ).style.width =
+        game.happiness + "%";
+
+    document.getElementById(
+        "energyBar"
+    ).style.width =
+        game.energy + "%";
+
+    document.getElementById(
+        "coins"
+    ).textContent =
+        game.coins;
+
+    updateMenuText();
+
+    localStorage.setItem(
+        "catTamagotchiSave",
+        JSON.stringify(game)
+    );
+}
+
+
+//=========================
+// MOBILE SHOP PRESS EFFECT
+//=========================
+
+document.querySelectorAll(
+    ".street-shop"
+).forEach(function(shop) {
+
+    shop.addEventListener(
+        "touchstart",
+        function() {
+
+            shop.classList.add(
+                "is-pressed"
+            );
+        }
+    );
+
+    shop.addEventListener(
+        "touchend",
+        function() {
+
+            shop.classList.remove(
+                "is-pressed"
+            );
+        }
+    );
+
+    shop.addEventListener(
+        "touchcancel",
+        function() {
+
+            shop.classList.remove(
+                "is-pressed"
+            );
+        }
+    );
+});
+
+
+//=========================
+// GAME MESSAGE
+//=========================
+
+function showGameMessage(message) {
+
+    const messageBox =
+        document.getElementById(
+            "gameMessage"
+        );
+
+    if (!messageBox) {
+        return;
+    }
+
+    messageBox.textContent =
+        message;
+
+    messageBox.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        showGameMessage.timeout
+    );
+
+    showGameMessage.timeout =
+        setTimeout(function() {
+
+            messageBox.classList.remove(
+                "show"
+            );
+
+        }, 2000);
+}
+
+
+//=========================
+// BUTTON ACTIONS
+//=========================
+
+function feedCat() {
+
+    // Gus cannot eat while already
+    // eating or sleeping
+    if (isFeeding || isSleeping) {
+        return;
+    }
+
+    // Gus cannot eat when full
+    if (game.hunger >= 100) {
+
+        showGameMessage(
+            "Gus is already full!"
+        );
+
+        return;
+    }
+
+    // Lock feeding
+    isFeeding = true;
+
+
+    game.hunger =
+        Math.min(
+            game.hunger + 10,
+            100
+        );
+
+    game.coins += 2;
+
+
+    // Eating animation lasts 5.2 seconds
     playAnimation(
         "eat",
         5200
     );
 
-    // First munch
+
+    // Four munch sounds
     playMunchSound();
 
-    // Second munch slightly later
     setTimeout(function() {
-
         playMunchSound();
-
     }, 1100);
 
-        setTimeout(function() {
-
+    setTimeout(function() {
         playMunchSound();
-
     }, 2200);
-    
-        setTimeout(function() {
 
+    setTimeout(function() {
         playMunchSound();
-
     }, 3300);
+
 
     updateGame();
 
-    // Eating animation lasts 5.2 seconds.
-    // Feed becomes available again afterwards.
+
+    // Unlock feeding when
+    // animation has finished
     setTimeout(function() {
 
         isFeeding = false;
@@ -347,24 +493,9 @@ function playSnoreSound() {
     }, 5200);
 }
 
-function playMunchSound() {
-
-    // Restart the sound from the beginning
-    munchSound.currentTime = 0;
-
-    munchSound.play().catch(function(error) {
-
-        console.log(
-            "Munch sound could not play:",
-            error
-        );
-
-    });
-}
 
 function openGames() {
 
-    // Games are always available
     window.location.href =
         "games.html";
 }
@@ -372,10 +503,13 @@ function openGames() {
 
 function sleepCat() {
 
+    // Gus cannot sleep while already
+    // sleeping or eating
     if (isSleeping || isFeeding) {
         return;
     }
 
+    // Gus cannot sleep at full energy
     if (game.energy >= 100) {
 
         showGameMessage(
@@ -385,8 +519,7 @@ function sleepCat() {
         return;
     }
 
-
-    // Lock Sleep for 5 seconds
+    // Lock sleeping
     isSleeping = true;
 
 
@@ -403,43 +536,41 @@ function sleepCat() {
         );
 
 
-    // Play sleeping animation for 5 seconds
+    // Sleep animation lasts 5 seconds
     playAnimation(
         "sleep",
         5000
     );
 
 
-    // First snore
+    // Three snores
     playSnoreSound();
 
-
-    // Second snore
     setTimeout(function() {
-
         playSnoreSound();
-
     }, 1500);
 
-
-    // Third snore
     setTimeout(function() {
-
         playSnoreSound();
-
     }, 3000);
 
 
     updateGame();
 
 
-    // Allow Sleep again after
-    // animation has finished
+    // Unlock sleeping after 5 seconds
     setTimeout(function() {
 
         isSleeping = false;
 
     }, 5000);
+}
+
+
+function openShop() {
+
+    window.location.href =
+        "shop.html";
 }
 
 
