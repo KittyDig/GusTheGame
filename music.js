@@ -6,7 +6,7 @@ const backgroundMusic =
     new Audio("assets/sound/theme.mp3");
 
 backgroundMusic.loop = true;
-backgroundMusic.volume = 0.12;
+backgroundMusic.volume = 0.22;
 
 
 // =========================

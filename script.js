@@ -239,12 +239,10 @@ function showGameMessage(message) {
 
 function feedCat() {
 
-    // Ignore taps while eating
-    if (isFeeding) {
+    if (isFeeding || isSleeping) {
         return;
     }
 
-    // Don't feed if already full
     if (game.hunger >= 100) {
 
         showGameMessage(
@@ -265,6 +263,50 @@ function feedCat() {
         );
 
     game.coins += 2;
+
+    //=========================
+// ACTION LOCKS
+//=========================
+
+let isFeeding = false;
+let isSleeping = false;
+
+
+//=========================
+// SOUND EFFECTS
+//=========================
+
+const munchSound =
+    new Audio("assets/sound/munch.mp3");
+
+const snoreSound =
+    new Audio("assets/sound/snore.mp3");
+
+
+function playMunchSound() {
+
+    munchSound.currentTime = 0;
+
+    munchSound.play().catch(function(error) {
+        console.log(
+            "Munch sound could not play:",
+            error
+        );
+    });
+}
+
+
+function playSnoreSound() {
+
+    snoreSound.currentTime = 0;
+
+    snoreSound.play().catch(function(error) {
+        console.log(
+            "Snore sound could not play:",
+            error
+        );
+    });
+}
 
     // Start eating animation
     playAnimation(
@@ -330,7 +372,10 @@ function openGames() {
 
 function sleepCat() {
 
-    // Gus cannot sleep if energy is already full
+    if (isSleeping || isFeeding) {
+        return;
+    }
+
     if (game.energy >= 100) {
 
         showGameMessage(
@@ -339,6 +384,11 @@ function sleepCat() {
 
         return;
     }
+
+
+    // Lock Sleep for 5 seconds
+    isSleeping = true;
+
 
     game.energy =
         Math.min(
@@ -352,12 +402,44 @@ function sleepCat() {
             0
         );
 
+
+    // Play sleeping animation for 5 seconds
     playAnimation(
         "sleep",
-        3600
+        5000
     );
 
+
+    // First snore
+    playSnoreSound();
+
+
+    // Second snore
+    setTimeout(function() {
+
+        playSnoreSound();
+
+    }, 1500);
+
+
+    // Third snore
+    setTimeout(function() {
+
+        playSnoreSound();
+
+    }, 3000);
+
+
     updateGame();
+
+
+    // Allow Sleep again after
+    // animation has finished
+    setTimeout(function() {
+
+        isSleeping = false;
+
+    }, 5000);
 }
 
 
